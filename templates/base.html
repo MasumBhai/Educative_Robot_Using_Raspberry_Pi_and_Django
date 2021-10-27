@@ -1,0 +1,665 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Device size responsiveness-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="MobileOptimized" content="320">
+
+    <!--SEO stuff-->
+    <link rel='shortlink' href=''/>
+    <link rel="canonical" href=""/>
+    <meta property="og:title" content="Brainy Fool Project">
+    <meta property="og:description" content="Facial Expression detect & feedback">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta name="twitter:card" content="summary_large_image"/>
+
+    <meta name="description" content="Service--Likhte hobe">
+    <meta name="keywords" content="software,">
+    <meta name="author" content="abdullahmasum6035@gmail.com">
+    <!--for icon-->
+    {% block head_favicon %}
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/home/rsz_brainy_fools.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/home/rsz_brainy_fools.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/home/rsz_brainy_fools.png' %}">
+        <link rel="manifest" href="{% static 'images/home/site.webmanifest' %}">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+    {% endblock head_favicon %}
+
+    {% block head_css %}
+        {% block head_css_site %}
+            {# bootstrap type link #}
+        {% endblock head_css_site %}
+        {% block head_css_section %}
+            {# custom written for specific page #}
+            <style>
+                @font-face {
+                    font-family: swiper-icons;
+                    src: url("{% static 'font/Swiper-Icon/swiper-icons.ttf' %}") format("truetype");
+                    font-weight: 400;
+                    font-style: normal
+                }
+                @font-face {
+                    font-family: SuisseIntl;
+                    src: url("{% static 'font/SuisseIntl-Regular/SuisseIntl-Regular.woff2' %}");
+                    src: local("SuisseIntl-Regular"),
+                         url("{% static 'font/SuisseIntl-Regular/SuisseIntl-Regular.woff2' %}") format("woff2");
+                    font-weight: 400;
+                    font-style: normal;
+                    font-display: swap
+                }
+                @font-face {
+                    font-family: SuisseIntl;
+                    src: url('{% static 'font/SuisseIntl-SemiBold/SuisseIntl-SemiBold.woff2' %}');
+                    src: local("SuisseIntl-SemiBold"),
+                         url("{% static 'font/SuisseIntl-SemiBold/SuisseIntl-SemiBold.woff2' %}") format("woff2");
+                    font-weight: 600;
+                    font-style: normal;
+                    font-display: swap
+                }
+            </style>
+            <style type="text/css" id="wp-custom-css">
+                .field p {
+                    font-size: 0px;
+                }
+
+                .form__wrapper p {
+                    display: none;
+                }
+
+                .radio input {
+                    opacity: 0;
+                    margin-right: -15px;
+                    z-index: 999;
+                }
+            </style>
+
+            <style id="skip-link-styles">
+                .skip-link.screen-reader-text {
+                    border: 0;
+                    clip: rect(1px, 1px, 1px, 1px);
+                    clip-path: inset(50%);
+                    height: 1px;
+                    margin: -1px;
+                    overflow: hidden;
+                    padding: 0;
+                    position: absolute !important;
+                    width: 1px;
+                    word-wrap: normal !important;
+                }
+
+                .skip-link.screen-reader-text:focus {
+                    background-color: #eee;
+                    clip: auto !important;
+                    clip-path: none;
+                    color: #444;
+                    display: block;
+                    font-size: 1em;
+                    height: auto;
+                    left: 5px;
+                    line-height: normal;
+                    padding: 15px 23px 14px;
+                    text-decoration: none;
+                    top: 5px;
+                    width: auto;
+                    z-index: 100000;
+                }
+            </style>
+        {% endblock head_css_section %}
+        {% block head_css_page %}
+            <!--for custom-css-page-->
+            <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css"/>
+            <!-- Alertify CSS -->
+            <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+            <!-- Default theme -->
+            <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+            <!-- Semantic UI theme -->
+            <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+            <!-- Bootstrap theme -->
+            <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+        {% endblock head_css_page %}
+    {% endblock head_css %}
+    <!--for title-->
+    <title>{% block title %}{% if companyInfo %} {{ companyInfo.team_name }} {% else %}Brainy Fools{% endif %}{% endblock title %}</title>
+</head>
+
+{% block page_loader %}
+
+{% endblock page_loader %}
+
+
+{% block body_content %}
+    {% block body_tag %}
+        <body>
+    {% endblock body_tag %}
+
+{% block header_nav_bar %}
+    <nav class="navigation" style="display: none;text-decoration-color: white;">
+        <button class="navigation__burger"><span></span><span></span></button>
+        <div class="navigation__items">
+            <div class="navigation__header">
+                <button class="navigation__back" style="display: none">
+                    <a class="icon icon_white" href="{% url 'contact' %}">
+                        {% if companyInfo %}
+                            {{ companyInfo.team_name }}
+                        {% else %}
+                            Brainy Fool
+                        {% endif %}
+                    </a>
+                </button>
+            </div>
+            <div class="navigation__breadcrumbs"></div>
+            <a class="navigation__item" href="{% url 'home' %}" target="">Home</a>
+            <a class="navigation__item" href="{% url 'contact' %}" target="">Contact Us</a>
+        </div>
+    </nav>
+{% endblock header_nav_bar %}
+
+{% block navbar_style %}
+    <style>
+        .navigation > .navigation__logo,
+        .navigation__item,
+        .navigation__burger {
+            color: #ffffff;
+        }
+
+        .navigation__item_active {
+            color: #445aec;
+        }
+
+        @media only screen and (min-width: 961px) {
+            .navigation__item:hover {
+                color: #445aec;
+            }
+        }
+    </style>
+{% endblock navbar_style %}
+{% block sidebar_nav_bar %}
+
+{% endblock sidebar_nav_bar %}
+
+{% block main_content %}
+
+{% endblock main_content %}
+
+{% block inner_body_content %}
+
+{% endblock inner_body_content %}
+{#{% block footer_upper %}#}
+{#    <div class="block block_slide-not-mobile" id="contact-us" data-dark>#}
+{#        <div class="block__content block__content_black">#}
+{#            <div class="contact-us">#}
+{#                <h2 class="block__title" animation="fade-up" animation-delay=".15">Contact us</h2>#}
+{#                <div class="form" animation="fade-up" animation-delay=".15" hf-data="hf-data">#}
+{#                    <div role="form" class="wpcf7" id="wpcf7-f254-o1" lang="en-US" dir="ltr">#}
+{#                        <div class="screen-reader-response">#}
+{#                            <p role="status" aria-live="polite" aria-atomic="true"></p>#}
+{#                            <ul></ul>#}
+{#                        </div>#}
+{#                        <form name="contactsForm" action="" method="post" class="wpcf7-form init form form-control" novalidate="novalidate"#}
+{#                              data-status="init" onsubmit="return emptyFieldCheck()">#}
+{#                            {% csrf_token %}#}
+{#                            <div class="form__wrapper">#}
+{#                                <div class="form__col">#}
+{#                                    <div class="field" validation="required">#}
+{#                                        {% csrf_token %}#}
+{#                                        <input type="text" name="contact-name" size="40"#}
+{#                                               class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required field__input"#}
+{#                                               aria-required="true" aria-invalid="false" placeholder="Name*" required/>#}
+{#                                        <div class="field__status"></div>#}
+{#                                        <div class="field__line"></div>#}
+{#                                    </div>#}
+{#                                    <div class="field" validation="required,email">#}
+{#                                        {% csrf_token %}#}
+{#                                        <input type="email" name="contact-email" size="40"#}
+{#                                               class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email field__input"#}
+{#                                               aria-required="true" aria-invalid="false" placeholder="Email*" required/>#}
+{#                                        <div class="field__status"></div>#}
+{#                                        <div class="field__line"></div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="form__col">#}
+{#                                    <div class="field" validation="phone">#}
+{#                                        {% csrf_token %}#}
+{#                                        <input type="tel" name="contact-phone" size="40"#}
+{#                                               class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-tel field__input"#}
+{#                                               aria-invalid="false" placeholder="Phone*" required/>#}
+{#                                        <div class="field__status"></div>#}
+{#                                        <div class="field__line"></div>#}
+{#                                    </div>#}
+{#                                    <div class="field" validation="required">#}
+{#                                        {% csrf_token %}#}
+{#                                    <textarea name="contact-message" cols="40" rows="10"#}
+{#                                              class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required field__textarea"#}
+{#                                              aria-required="true" aria-invalid="false"#}
+{#                                              placeholder="Message*" required></textarea>#}
+{#                                        <div class="field__status"></div>#}
+{#                                        <div class="field__line"></div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="form__label">We will process your personal information in accordance#}
+{#                                    with our <a#}
+{#                                            href="https://www.termsfeed.com/live/0c9149b6-1986-4616-9cd3-f9cb9717c573" target="_blank">Privacy#}
+{#                                        Policy.</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            {% csrf_token %}#}
+{#                            <input class="form__submit form__submit_full" id="form-submit" type="submit" name="send-message" value="Send message → ">#}
+{#                            <div class="wpcf7-response-output" aria-hidden="true"></div>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                </div>#}
+{#<div class="contact-us__row contact-us__row_full contact-us__row_first">#}
+{#<div class="contact-us__info">#}
+{#<div class="contact-us__title" animation="fade-up" animation-delay=".15">{% if companyInfo %}{{ companyInfo.company_description }}{% else %}#}
+{#Custom software development company that creates and transforms business solutions, products, and enterprises to drive growth today and into the future{% endif %}#}
+{#</div></div>#}
+{#<div class="contact-us__navigation">#}
+{#<div class="contact-us__menu">#}
+{#<div class="contact-us__menu-block" animation="fade-up" animation-delay=".15">#}
+{#<div class="contact-us__menu-title">Our Office Location</div><a class="contact-us__menu-item contact-us__menu-item_disable">#}
+{#{% if companyInfo %}{{ companyInfo.company_address }}{% else %}Dhaka,Bangladesh{% endif %}</a>#}
+{#</div>#}
+{#</div>#}
+{#</div>#}
+{#</div>#}
+{#                <div class="contact-us__row contact-us__row_mt-auto contact-us__sticky-mobile"#}
+{#                     sticky-block="sticky-block">#}
+{#                    <div class="contact-us__left">#}
+{#                        <div class="contact-us__contacts" animation="fade-up" animation-delay=".15">#}
+{#                            <div class="contact-us__block">#}
+{#                                <div class="contact-us__socials">#}
+{#                                    <a class="contact-us__social"#}
+{#                                       href="{% if companyInfo %}{{ companyInfo.company_linkedin }}{% endif %}"#}
+{#                                       target="_blank" id="contacts-social-1">#}
+{#                                        <img src="https://itrexgroup.com/wp-content/themes/itrex/assets/images/socials/linkedin.svg"#}
+{#                                             alt="linkedin-logo"/>#}
+{#                                    </a>#}
+{#                                    <a class="contact-us__social" href="{% if companyInfo %}{{ companyInfo.company_facebook }}{% endif %}"#}
+{#                                       target="_blank" id="contacts-social-2">#}
+{#                                        <img src="https://itrexgroup.com/wp-content/themes/itrex/assets/images/socials/facebook.svg"#}
+{#                                             alt="facebook-logo"/>#}
+{#                                    </a>#}
+{#                                    <a class="contact-us__social" href="{% if companyInfo %}{{ companyInfo.company_instagram }}{% endif %}"#}
+{#                                       target="_blank" id="contacts-social-3">#}
+{#                                        <img src="https://itrexgroup.com/wp-content/themes/itrex/assets/images/socials/instagram.svg"#}
+{#                                             alt="instagram-logo"/>#}
+{#                                    </a>#}
+{#                                    <a class="contact-us__social"#}
+{#                                       href="{% if companyInfo %}{{ companyInfo.company_youtube }}{% endif %}"#}
+{#                                       target="_blank"#}
+{#                                       id="contacts-social-4">#}
+{#                                        <img src="https://itrexgroup.com/wp-content/themes/itrex/assets/images/socials/youtube.svg"#}
+{#                                             alt="youtube-logo"/>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                                <div class="contact-us__contact-links">#}
+{#                                    {% if companyInfo %}#}
+{#                                        <a class="contact-us__mail" href="mailto:{{ companyInfo.company_mail }}"#}
+{#                                           target="_blank"#}
+{#                                           id="contacts-1">{{ companyInfo.company_mail }}</a>#}
+{#                                        <br/><a class="contact-us__mail" href="tel:{{ companyInfo.company_phone }}"#}
+{#                                                target="_blank"#}
+{#                                                id="contacts-2">{{ companyInfo.company_phone }}</a>#}
+{#                                    {% else %}#}
+{#                                        <a class="popup__link" href="mailto:aztechvalleyltd@gmail.com" target=""#}
+{#                                           id="contacts-popup-1">aztechvalleyltd@gmail.com</a>#}
+{#                                        <br/><a class="popup__link" href="tel:+8801712500637" target=""#}
+{#                                                id="contacts-popup-2">+880 171 250 0637</a>#}
+{#                                    {% endif %}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="contact-us__advancements">#}
+{#                                <img class="contact-us__advancement" class="contact-us__advancement"#}
+{#                                     src="{% static 'images/base/advancement-2.svg' %}"#}
+{#                                     alt=""#}
+{#                                     role="presentation"/>#}
+{#                                <img class="contact-us__advancement" src="{% static 'images/base/advancement-3.svg' %}"#}
+{#                                         alt=""#}
+{#                                         role="presentation"/>#}
+{#                                <img class="contact-us__advancement" src="{% static 'images/base/advancement-4.svg' %}"#}
+{#                                         alt=""#}
+{#                                         role="presentation"/>#}
+{#                                <img class="contact-us__advancement" src="{% static 'images/base/advancement-5.svg' %}"#}
+{#                                         alt=""#}
+{#                                         role="presentation"/>#}
+{#                                <img class="contact-us__advancement" src="{% static 'images/base/advancement-6.svg' %}"#}
+{#                                         alt="Microsoft Silver Partner" role="presentation"/>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="contact-us__links" animation="fade-up" animation-delay=".15">#}
+{#                    <span style="float:left;">#}
+{#                        <a class="contact-us__link contact-us__link_disable">©{% now 'Y' %}#}
+{#                            {% if companyInfo %}{{ companyInfo.company_name }}{% else %}Brainy Fools{% endif %}</a>#}
+{#                        <a class="contact-us__link"#}
+{#                           href="https://www.termsfeed.com/live/0c9149b6-1986-4616-9cd3-f9cb9717c573" target="">Privacy#}
+{#                            Policy</a>#}
+{#                    <span style=float:right;>#}
+{#                        {% if user.is_authenticated %}#}
+                            {#                            <a class="navigation__link" disabled="" target="">I'm {{ user.username }}</a>#}
+{#                            <a href="{% url 'auth_logout' %}" target="">Log-Out</a>#}
+{#                        {% else %}#}
+                            {#                            <a class="navigation__link" href="{% provider_login_url 'google' %}" target="">I'm User</a>#}
+{#                            <a href="http://127.0.0.1:8000/admin/" target="">For Stuff</a>#}
+                            {# ekhane change korte hobe #}
+{#                        {% endif %}#}
+{#                    </span>#}
+{#                    </span>#}
+{#                    <!-- <a class="contact-us__link contact-us__link_last" href="https://hainteractive.com/" target="_blank">Made by HA</a> -->#}
+{#                </div>#}
+{#                <div style="clear: both;"></div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock footer_upper %}#}
+{#{% block footer_down %}#}
+{#    <div class="popup" id="form">#}
+{#        <div class="popup__header">#}
+{#            <div class="popup__logo">#}
+{#                <img src="{{ companyInfo.company_logo.url }}"#}
+{#                    alt="{{ companyInfo.company_name }}"></div>#}
+{#            <div class="popup__close"></div>#}
+{#        </div>#}
+{#        <div class="popup__content">#}
+{#            <div class="popup__info">#}
+{#                <div class="popup__title title">Get#}
+{#                    in touch#}
+{#                </div>#}
+{#                <div class="popup__contacts">#}
+{#                    {% if companyInfo %}#}
+{#                        <a class="contact-us__mail" href="mailto:{{ companyInfo.company_mail }}" target="_blank"#}
+{#                           id="contacts-1">{{ companyInfo.company_mail }}</a>#}
+{#                        <br/> <a class="contact-us__mail" href="tel:{{ companyInfo.company_phone }}" target="_blank"#}
+{#                                 id="contacts-2">{{ companyInfo.company_phone }}</a>#}
+{#                    {% else %}#}
+{#                        <a class="popup__link" href="mailto:aztechvalleyltd@gmail.com" target="" id="contacts-popup-1">aztechvalleyltd@gmail.com</a>#}
+{#                    <br/> <a class="popup__link" href="tel:+8801712500637" target="" id="contacts-popup-2">+880 171 250 0637</a>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form" hf-data="hf-data">#}
+{#                <div role="form" class="wpcf7" id="wpcf7-f28-o2" lang="en-US" dir="ltr">#}
+{#                    <div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p>#}
+{#                        <ul></ul>#}
+{#                    </div>#}
+{#                    <form name="floatingContactBox" action="" method="post"#}
+{#                          class="wpcf7-form init wpcf7-acceptance-as-validation"#}
+{#                          novalidate="novalidate" data-status="init" onsubmit="return validationCheck()">#}
+{#                        {% csrf_token %}#}
+{#                        <div class="field" validation="required">#}
+{#                            {% csrf_token %}#}
+{#                            <input type="text" name="contact-name" size="40"#}
+{#                                   class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required field__input"#}
+{#                                   aria-required="true" aria-invalid="false" placeholder="Name*" required/>#}
+{#                            <div class="field__status"></div>#}
+{#                            <div class="field__line"></div>#}
+{#                        </div>#}
+{#                        <div class="field" validation="required,email">#}
+{#                            {% csrf_token %}#}
+{#                            <input type="email" name="contact-email" size="40"#}
+{#                                   class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email field__input"#}
+{#                                   aria-required="true" aria-invalid="false" placeholder="Email*" required/>#}
+{#                            <div class="field__status"></div>#}
+{#                            <div class="field__line"></div>#}
+{#                        </div>#}
+{#                        <div class="field" validation="required,phone">#}
+{#                            {% csrf_token %}#}
+{#                            <input type="tel" name="contact-phone" size="40"#}
+{#                                   class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-tel field__input"#}
+{#                                   aria-invalid="false" placeholder="Phone*" required/>#}
+{#                            <div class="field__status"></div>#}
+{#                            <div class="field__line"></div>#}
+{#                        </div>#}
+{#                        <div class="field" validation="required">#}
+{#                            {% csrf_token %}#}
+{#                        <textarea name="contact-message" cols="40" rows="10"#}
+{#                                  class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required field__textarea"#}
+{#                                  aria-required="true" aria-invalid="false" placeholder="Message*" required></textarea>#}
+{#                            <div class="field__status"></div>#}
+{#                            <div class="field__line"></div>#}
+{#                        </div>#}
+{#                        <div class="form__label">We will process your personal information in accordance with our <a#}
+{#                                href="https://www.termsfeed.com/live/0c9149b6-1986-4616-9cd3-f9cb9717c573" target="_blank">Privacy Policy.</a>#}
+{#                        </div>#}
+{#                        {% csrf_token %}#}
+{#                            <input class="form__submit"  type="submit" name="send-message" value="Send message → ">#}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="popup__contacts popup__contacts_tablet">#}
+{#                {% if companyInfo %}#}
+{#                    <a class="contact-us__mail" href="mailto:{{ companyInfo.company_mail }}" target="_blank"#}
+{#                       id="contacts-1">{{ companyInfo.company_mail }}</a>#}
+{#                    <br/>#}
+{#                    <a class="contact-us__mail" href="tel:{{ companyInfo.company_phone }}" target="_blank"#}
+{#                             id="contacts-2">{{ companyInfo.company_phone }}</a>#}
+{#                {% else %}#}
+{#                    <a class="popup__link" href="mailto:aztechvalleyltd@gmail.com" target="" id="contacts-popup-1">aztechvalleyltd@gmail.com</a>#}
+{#                    <br/>#}
+{#                    <a class="popup__link" href="tel:+8801712500637" target="" id="contacts-popup-2">+880 171 250#}
+{#                    0637</a>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock footer_down %}#}
+</body>
+{% endblock body_content %}
+{% block footer_javascript %}
+    {% block footer_javascript_site %}
+        <!-- Bootstrap JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+                crossorigin="anonymous"></script>
+        <!--for font-awesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        <!--for ajax-jquery-->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <!-- for sweet-alert2-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- for Alertify JS -->
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <!--for Google Recptcha-->
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <!-- Google Tag Manager -->
+        <script>
+            setTimeout(function () {
+                <!-- Google Tag Manager -->
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({
+                        'gtm.start':
+                            new Date().getTime(), event: 'gtm.js'
+                    });
+                    var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                    j.async = true;
+                    j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-5PSHBNC');
+            }, 4000);
+        </script>
+        <!-- End Google Tag Manager -->
+        <!-- Google Tag Manager (noscript) -->
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PSHBNC"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    {% endblock footer_javascript_site %}
+    {% block footer_javascript_section %}
+        {# custom written js for specific page #}
+        <script>
+            setTimeout(function () {
+                if ($('#msg').length > 0) {
+                    $('#msg').remove();
+                }
+            }, 6000)
+        </script>
+        <script>
+            (function () {
+                var skipLinkTarget = document.querySelector('main'),
+                    parentEl,
+                    skipLinkTargetID,
+                    skipLink;
+// Early exit if a skip-link target can't be located.
+                if (!skipLinkTarget) {
+                    return;
+                }
+// Get the site wrapper.
+// The skip-link will be injected in the beginning of it.
+                parentEl = document.querySelector('.wp-site-blocks') || document.body,
+// Get the skip-link target's ID, and generate one if it doesn't exist.
+                    skipLinkTargetID = skipLinkTarget.id;
+                if (!skipLinkTargetID) {
+                    skipLinkTargetID = 'wp--skip-link--target';
+                    skipLinkTarget.id = skipLinkTargetID;
+                }
+// Create the skip link.
+                skipLink = document.createElement('a');
+                skipLink.classList.add('skip-link', 'screen-reader-text');
+                skipLink.href = '#' + skipLinkTargetID;
+                skipLink.innerHTML = 'Skip to content';
+// Inject the skip link.
+                parentEl.insertAdjacentElement('afterbegin', skipLink);
+            }());
+        </script>
+        <script>
+            document.addEventListener('wpcf7submit', function (event) {
+                if (performance.now() < 8000) {
+                    alert('Please press OK');
+                } else {
+                }
+            }, false);
+        </script>
+        <script>
+            function emptyFieldCheck() {
+                var x = document.forms["contactsForm"]["contact-name"].value;
+                var y = document.forms["contactsForm"]["contact-email"].value;
+                var z = document.forms["contactsForm"]["contact-phone"].value;
+                var w = document.forms["contactsForm"]["contact-message"].value;
+                var mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                var phoneFormat = "^(?:\\+88|88)?(01[3-9]\\d{8})$";
+                if (x === "") {
+                    alert("Name must be filled out");
+                    return false;
+                }
+                if (y === "") {
+                    alert("Email must be filled out");
+                    return false;
+                }
+                if (z === "") {
+                    alert("Phone must be filled out");
+                    return false;
+                }
+                if (z === "") {
+                    alert("Message must be filled out");
+                    return false;
+                }
+                if (!y.match(mailFormat)) {
+                    alert("You have entered an invalid email address!");
+                    return false;
+                }
+                if (!z.match(phoneFormat)) {
+                    alert("You have entered an invalid phone Number!");
+                    return false;
+                }
+                alert("Thanks for staying with us.");
+            }
+        </script>
+        <script>
+            function validationCheck() {
+                var x = document.forms["floatingContactBox"]["contact-name"].value;
+                var y = document.forms["floatingContactBox"]["contact-email"].value;
+                var z = document.forms["floatingContactBox"]["contact-phone"].value;
+                var w = document.forms["floatingContactBox"]["contact-message"].value;
+                var mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                var phoneFormat = "^(?:\\+88|88)?(01[3-9]\\d{8})$";
+                if (x === "") {
+                    alert("Name must be filled out");
+                    return false;
+                }
+                if (y === "") {
+                    alert("Email must be filled out");
+                    return false;
+                }
+                if (z === "") {
+                    alert("Phone must be filled out");
+                    return false;
+                }
+                if (z === "") {
+                    alert("Message must be filled out");
+                    return false;
+                }
+                if (!y.match(mailFormat)) {
+                    alert("You have entered an invalid email address!");
+                    return false;
+                }
+                if (!z.match(phoneFormat)) {
+                    alert("You have entered an invalid phone Number!");
+                    return false;
+                }
+                alert("Thanks for staying with us.");
+            }
+        </script>
+        <script>
+            function validateForm() {
+                var x = document.forms["jobRequest"]["participant-name"].value;
+                var y = document.forms["jobRequest"]["participant-email"].value;
+                var z = document.forms["jobRequest"]["participant-phone"].value;
+                var w = document.forms["jobRequest"]["participant-message"].value;
+                var mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                {#var phoneFormat = "^(?:\\+88|88)?(01[3-9]\\d{8})$";#}
+                var phoneFormat = "^(01[3-9]\\d{8})$";
+                if (x === "") {
+                    alert("Name must be filled out");
+                    return false;
+                }
+                if (y === "") {
+                    alert("Email must be filled out");
+                    return false;
+                }
+                if (z === "") {
+                    alert("Phone must be filled out");
+                    return false;
+                }
+                if (z === "") {
+                    alert("Message must be filled out");
+                    return false;
+                }
+                if (!y.match(mailFormat)) {
+                    alert("You have entered an invalid email address!");
+                    return false;
+                }
+                if (!z.match(phoneFormat)) {
+                    alert("You have entered an invalid phone Number!");
+                    return false;
+                }
+            }
+        </script>
+        {% include 'scroll_lock.html' %}
+        {% include 'ajax_karbar.html' %} {# er vitore temon kaaj nai,Yoy can comment this line #}
+        {% include 'bundle.html' %} {# This is important for ajaxify #}
+    {% endblock footer_javascript_section %}
+    {% block footer_javascript_page %}
+        <!--for Alertify js msg-->
+        <script>
+            {% for msg in messages %}
+                alertify.set('notifier', 'position', 'top-center');
+                alertify.success(msg + alertify.get('notifier', 'position'));
+            {% endfor %}
+        </script>
+    {% endblock footer_javascript_page %}
+{% endblock footer_javascript %}
+</html>
+<!--/*-->
+<!--author: Masum(the superman)-->
+<!--*/-->

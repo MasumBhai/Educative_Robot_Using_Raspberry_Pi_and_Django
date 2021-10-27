@@ -37,6 +37,7 @@ def whatsappMsg(phone, msg):
 
 
 def baseEverywhere(request):
+    global teamInfo
     if request.POST.get('send-message'):
         messages.success(request, 'You successfully sent your msg')
         nameOfParent = request.POST.get('contact-name')
@@ -56,28 +57,29 @@ def baseEverywhere(request):
             )
             messages.success(request=request, message="An email is sent to your mailing address")
 
-            companyInfo = SoftwareCompany.objects.get(company_code__exact="coded by Brainy_Fool(+8801551805248)")
+            teamInfo = project_team.objects.get(team_code__exact="coded by Brainy_Fool(+8801551805248)")
 
             subject = f'Thanks {newSurvillance.s_parent_name} for watching your kid through our service'
             message = render_to_string(template_name='promotional_Advertise.html',
-                                       context={'personName': newSurvillance.contact_name,
-                                                'personPhone': newSurvillance.contact_phone,
-                                                'companyName': companyInfo.company_name,
-                                                'companyPhone': companyInfo.company_phone,
-                                                'companyMail': companyInfo.company_mail,
+                                       context={'personName': newSurvillance.s_parent_name,
+                                                'personPhone': newSurvillance.s_parent_phone,
+                                                'companyName': teamInfo.team_name,
+                                                'companyPhone': teamInfo.team_phone,
+                                                'companyMail': teamInfo.team_mail,
                                                 })
             email_from = settings.EMAIL_HOST_USER
-            recipient_list = [newContact.contact_mail, ]
+            recipient_list = [newSurvillance.s_parent_mail, ]
             EmailThread(subject=subject, message=message, sender=email_from, recipient=recipient_list,
                         fail_silently=False).start()
             # send_mail(subject, message, email_from, recipient_list, fail_silently=False)
         except:
             messages.error(request=request, message="Something Went Wrong, Kindly Try Again")
         try:
-            companyInfo = SoftwareCompany.objects.get(company_code__exact="coded by Masum phone(+8801551805248)")
-            companyAddress = companyInfo.company_address
-            companyName = companyInfo.company_name
-            msgg = str(companyName + " company's Location: \n" + companyAddress)
+            team_info = project_team.objects.get(team_code__exact="coded by Brainy_Fool(+8801551805248)")
+            # companyAddress = team_info.company_address
+            companyName = team_info.team_name
+            companyMail = team_info.team_mail
+            msgg = str("From "+ companyName + "\n if any kind of difficulty faces: \n contact us:" + companyMail)
             whatsappMsg(phone=phoneNumber, msg=msgg)
         except:
             messages.error("Wrong Mobile Info")
@@ -88,3 +90,18 @@ def home(request):
     context = {
     }
     return render(request, 'index.html', context=context)
+
+
+def contact(request):
+    baseEverywhere(request=request)
+    context = {
+    }
+    return render(request, 'contact.html', context=context)
+
+def error(request, anything=None): # template missing
+    # baseEverywhere(request=request)
+    context = {
+    }
+    return render(request, 'error.html', context=context)
+
+

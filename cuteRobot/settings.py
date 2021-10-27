@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'miniRobot.apps.MinirobotConfig',
 ]
 
-INSTALLED_APPS += ('svg',
+INSTALLED_APPS += (
                    'crispy_forms',
                    'django_summernote',
                    'allauth',
@@ -80,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'miniRobot.context_processors.add_variable_to_context',
             ],
         },
     },

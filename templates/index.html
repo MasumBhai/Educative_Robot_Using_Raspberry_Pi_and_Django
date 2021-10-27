@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block body_tag %}
+    <body class="home page-template-default page">
+{% endblock body_tag %}
+
+{% block header_nav_bar %}
+    <nav class="navigation" style="display: none;text-decoration-color: white;">
+        <button class="navigation__burger"><span></span><span></span></button>
+        <div class="navigation__items">
+            <div class="navigation__header">
+                <button class="navigation__back" style="display: none">
+                    <a class="icon icon_white" href="{% url 'contact' %}">
+                        {% if companyInfo %}
+                            {{ companyInfo.team_name }}
+                        {% else %}
+                            Brainy Fool
+                        {% endif %}
+                    </a>
+                </button>
+            </div>
+            <div class="navigation__breadcrumbs"></div>
+            <a class="navigation__item" href="{% url 'contact' %}" target="">Contact Us</a>
+        </div>
+    </nav>
+{% endblock header_nav_bar %}
+
+
+{% block navbar_style %}
+    <style>
+.navigation > .navigation__logo,
+.navigation__item,
+.navigation__burger {
+color: #000000;
+}
+.navigation__item_active {
+color: #445aec;
+}
+@media only screen and (min-width: 961px) {
+.navigation__item:hover {
+color: #445aec;
+}
+}
+</style>
+{% endblock navbar_style %}
+
+{% block sidebar_nav_bar %}
+    <div class="scroll-bar"></div>
+{% endblock sidebar_nav_bar %}
+{% block main_content %}
+    <div class="wrapper">
+        <div class="sticky-overflow">
+            <div class="footer" auto-size-height="we-do">
+                <div class="footer__content"><a class="footer__link" id="cta" href="#form"><span
+                        class="footer__link-background footer__link-background_back"></span><span
+                        class="footer__link-background footer__link-background_front"></span><span
+                        class="footer__link-text"><span
+                        class="footer__link-text-value">Let's discuss your challenge</span><span
+                        class="footer__link-icon"><span class="footer__link-icon-first">→</span><span
+                        class="footer__link-icon-second">→</span></span></span></a></div>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body_tag %}
+    <body class="home page-template-default page">
+{% endblock body_tag %}
+
+{% block navbar_style %}
+    <style>
+        .navigation > .navigation__logo,
+        .navigation__item,
+        .navigation__burger {
+            color: #000000;
+        }
+
+        .navigation__item_active {
+            color: #445aec;
+        }
+
+        @media only screen and (min-width: 961px) {
+            .navigation__item:hover {
+                color: #445aec;
+            }
+        }
+    </style>
+{% endblock navbar_style %}
+
+{% block sidebar_nav_bar %}
+{% endblock sidebar_nav_bar %}
+{% block main_content %}
+    <div class="contact-us-page block block_full block_nav">
+        <div class="contact-us-page__content">
+            <div class="contact-us-page__info">
+                <h2 class="contact-us-page__title">
+                    Get <br>in touch
+                </h2>
+                <div class="contact-us-page__contacts">
+                    {% if companyInfo %}
+                        <a class="contact-us__mail" href="mailto:{{ companyInfo.team_mail }}"
+                           target="_blank"
+                           id="contacts-1">{{ companyInfo.team_mail }}</a>
+                        <br/>
+                        <a class="contact-us__mail" href="tel:{{ companyInfo.team_phone }}"
+                           target="_blank"
+                           id="contacts-2">{{ companyInfo.team_phone }}</a>
+                    {% else %}
+                        <a class="popup__link" href="mailto:aztechvalleyltd@gmail.com" target=""
+                           id="contacts-popup-1">abdullahmasum6035@gmail.com</a>
+                        <br/>
+                        <a class="popup__link" href="tel:+8801551805248" target=""
+                           id="contacts-popup-2">+880 155 180 5248</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form form_dark" hf-data="hf-data">
+                <div role="form" class="wpcf7" id="wpcf7-f22-o1" lang="en-US" dir="ltr">
+                    <div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p>
+                        <ul></ul>
+                    </div>
+                    <form name="contactsForm" action="" method="post" class="wpcf7-form init"
+                          novalidate="novalidate"
+                          data-status="init" onsubmit="return emptyFieldCheck()">
+                        {% csrf_token %}
+                        <div class="field field_dark" validation="required">
+                            {% csrf_token %}
+                            <input type="text" name="contact-name" size="40"
+                                   class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required field__input"
+                                   aria-required="true" aria-invalid="false" placeholder="Name*" required/>
+                            <div class="field__status"></div>
+                            <div class="field__line"></div>
+                        </div>
+                        <div class="field field_dark" validation="required,email">
+                            {% csrf_token %}
+                            <input type="email" name="contact-email" size="40"
+                                   class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email field__input"
+                                   aria-required="true" aria-invalid="false" placeholder="Email*" required/>
+                            <div class="field__status"></div>
+                            <div class="field__line"></div>
+                        </div>
+                        <div class="field field_dark" validation="required,phone">
+                            {% csrf_token %}
+                            <input type="tel" name="contact-phone" size="40"
+                                   class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel field__input"
+                                   aria-required="true" aria-invalid="false" placeholder="Phone*" required/>
+                            <div class="field__status"></div>
+                            <div class="field__line"></div>
+                        </div>
+                        <div class="field field_dark" validation="required">
+                            {% csrf_token %}
+                            <textarea name="contact-message" cols="40" rows="10"
+                                      class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required field__textarea"
+                                      aria-required="true" aria-invalid="false" placeholder="Message"></textarea>
+                            <div class="field__status"></div>
+                            <div class="field__line"></div>
+                        </div>
+                        {% csrf_token %}
+                        <input class="form__submit" id="form-submit" type="submit" name="send-message"
+                               value="Send message → ">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
+
+{% block footer_upper %}
+{% endblock footer_upper %}
+{% block footer_down %}
+{% endblock footer_down %}

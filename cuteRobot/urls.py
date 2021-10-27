@@ -25,7 +25,7 @@ admin.site.site_title = "Hackathon Mini Robot"
 admin.site.index_title = "Welcome Admin"
 
 urlpatterns = [
-                  path('', RedirectView.as_view(url='home/', permanent=True)),
+                  path('', RedirectView.as_view(url='contact/', permanent=True)),
                   path('admin/', admin.site.urls),
                   path('', include('miniRobot.urls')),
                   path('__debug__/', include(debug_toolbar.urls)),
